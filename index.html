@@ -47,10 +47,10 @@ function chart(){
  const target=document.getElementById("chart");
  if(!points.length){target.innerHTML='<p class="hint">Wpisz wagę startową lub tygodniową, aby zobaczyć wykres.</p>';return}
  const W=720,H=285,L=48,R=18,T=30,B=38,values=points.map(p=>p.y);
- const low=Math.min(...values)-1,high=Math.max(...values)+1;
+ const low=52,high=66;
  const X=x=>L+x/12*(W-L-R),Y=y=>T+(high-y)/(high-low)*(H-T-B);
  let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Wykres masy ciała">';
- for(let i=0;i<5;i++){const v=low+(high-low)*i/4,y=Y(v);svg+='<line x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'" stroke="#eaddea"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="12" fill="#806d85">'+v.toFixed(1)+'</text>'}
+ for(let i=0;i<=7;i++){const v=low+i*2,y=Y(v);svg+='<line x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'" stroke="#eaddea"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="12" fill="#806d85">'+v.toFixed(1)+'</text>'}
  for(let i=0;i<=12;i++){svg+='<text x="'+X(i)+'" y="'+(H-12)+'" text-anchor="middle" font-size="12" fill="#806d85">'+(i===0?"S":i)+'</text>'}
  if(points.length>1)svg+='<polyline fill="none" stroke="#795080" stroke-width="3" points="'+points.map(p=>X(p.x)+","+Y(p.y)).join(" ")+'"/>';
  for(const p of points){svg+='<circle cx="'+X(p.x)+'" cy="'+Y(p.y)+'" r="5" fill="#795080"/><text x="'+X(p.x)+'" y="'+(Y(p.y)-12)+'" text-anchor="middle" font-size="12" fill="#795080">'+p.y.toFixed(1)+'</text>'}
