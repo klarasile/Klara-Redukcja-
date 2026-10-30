@@ -1,0 +1,26 @@
+{
+  "name": "Redukcja — Klara i Mama",
+  "short_name": "Redukcja",
+  "description": "12 tygodni redukcji Klary i Mamy: dni, pomiary, kalorie z Foodbok",
+  "id": "/Klara-Redukcja-/",
+  "start_url": "/Klara-Redukcja-/",
+  "scope": "/Klara-Redukcja-/",
+  "display": "standalone",
+  "background_color": "#faf5fa",
+  "theme_color": "#b47ca8",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
