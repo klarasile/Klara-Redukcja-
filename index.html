@@ -7,9 +7,7 @@
 <header><h1>💗 Redukcja — Klara i Mama</h1><p>12 tygodni postępów • od 9 listopada 2026<br>Daty, pomiary, zaliczone dni i bilans z Foodbok 🍓</p></header>
 <div class="tabs" role="tablist" aria-label="Osoba"><button type="button" id="tabKlara" onclick="setPerson('klara')">💗 Klara</button><button type="button" id="tabMama" onclick="setPerson('mama')">🌷 Mama</button></div>
 <section class="card"><h2>🌷 Punkt startowy — <span id="personTitle">Klara</span></h2><div class="grid" id="starts"></div><p class="personNote" id="personTip"></p></section>
-<section class="card"><h2>🍓 Kalorie z Foodbok</h2><p class="hint">Po zaznaczeniu zjedzonych posiłków w Foodbok naciśnij „Prześlij kalorie do Redukcji”. Zapisane wyniki pojawią się pod właściwymi datami. Zaliczenie dnia nadal zaznaczasz samodzielnie.</p>
-<div class="buttons"><a class="link" href="https://klarasile.github.io/foodbook-/">🍓 Otwórz Foodbok</a><button class="secondary" onclick="showSyncInfo()">Jak synchronizować?</button></div><p class="status" id="syncStatus" aria-live="polite">Nie pobrano jeszcze kalorii z Foodbok.</p>
-<div class="notice">To synchronizacja <b>po naciśnięciu przycisku</b>, nie automatyczna w tle. Oba serwisy zapisują dane lokalnie. Na iPhonie aplikacje dodane do ekranu początkowego mogą mieć oddzielną pamięć — wtedy najpewniejsze jest korzystanie z nich w tej samej przeglądarce Safari.</div></section>
+<section class="card"><h2>🍓 Kalorie z Foodbok — synchronizacja</h2><div id="cloudPanel"></div><p class="status" id="syncStatus" aria-live="polite">Zaloguj się do konta rodzinnego, by pobrać spożyte kalorie.</p><div class="buttons"><a class="link" href="https://klarasile.github.io/foodbook-/">🍓 Otwórz Foodbok</a></div><div class="notice">Kalorie pobierane są z chmury po otwarciu aplikacji. Ręczne zaliczanie dni i pomiary pozostają zapisane na tym urządzeniu.</div></section>
 <section class="card"><h2>✨ Plan tygodniowy</h2><p class="hint">Każde kółko odpowiada konkretnej dacie. Pod nim zobaczysz spożyte kalorie z Foodbok. Dotknij kółka, aby ręcznie zaliczyć dzień.</p></section>
 <div id="weeks"></div>
 <section class="card"><h2>📉 Trend wagi — <span id="chartPerson">Klara</span></h2><div id="chart"><p class="hint">Wpisz pomiary, aby zobaczyć wykres.</p></div></section>
@@ -56,4 +54,8 @@ function importFromHash(){if(!location.hash.startsWith('#foodbok='))return;let p
 function exportData(){const archive={name:'Klara i Mama — Redukcja 12 tygodni',version:2,data:data.klara,people:data,foodbok:sync};const blob=new Blob([JSON.stringify(archive,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='redukcja_kopia_obie_osoby.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 async function importData(event){const f=event.target.files[0];if(!f)return;try{const raw=JSON.parse(await f.text());if(!confirm('Przywrócić dane z wybranej kopii? Zastąpi to odpowiednie bieżące wpisy.'))return;if(raw.people&&raw.people.klara){data.klara=raw.people.klara;data.mama=raw.people.mama||{};if(raw.foodbok&&raw.foodbok.dates){sync=raw.foodbok;saveSync()}}else if(raw.data&&typeof raw.data==='object'){data.klara=raw.data}else if(raw&&typeof raw==='object'&&!Array.isArray(raw)){data.klara=raw}else throw Error('format');save();render();alert('Dane zostały przywrócone.')}catch(e){alert('Nie udało się wczytać kopii danych.')}event.target.value=''}
 render();importFromHash();
-</script></body></html>
+</script>
+<script src="sync-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="sync-client.js"></script>
+</body></html>
