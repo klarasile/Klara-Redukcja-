@@ -17,7 +17,7 @@
 'use strict';
 const START='2026-11-09',MS_WEEK=604800000,MS_DAY=86400000;
 const OLD_KEY='klara-12-tyg-v4',MAMA_KEY='mama-12-tyg-v1',SYNC_KEY='reduction-foodbok-v1';
-const defaultSteps=[5000,10000,10000,15000,15000,20000,20000,20000,20000,20000,20000,20000];
+const defaultSteps=[5000,10000,10000,15000,15000,15000,15000,15000,15000,15000,15000];
 const klaraCalories=[1700,1700,1700,1700,1700,1700,1700,1700,1500,1500,1500,1500];
 const mamaCalories=[1600,1600,1600,1600,1600,1600,1600,1600,1600,1500,1500,1500];
 function read(key,other={}){try{let o=JSON.parse(localStorage.getItem(key));return o&&typeof o==='object'&&!Array.isArray(o)?o:other}catch{return other}}
